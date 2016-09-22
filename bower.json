@@ -1,0 +1,28 @@
+{
+  "name": "angular-test-ez",
+  "homepage": "https://github.com/absynce/angular-test-ez",
+  "authors": [
+    "Jared M. Smith <absynce@gmail.com>"
+  ],
+  "description": "Easy-to-use test helper for AngularJS",
+  "main": "./dist/angular-test-ez.js",
+  "moduleType": [],
+  "keywords": [
+    "angular",
+    "test",
+    "help",
+    "easy"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "devDependencies": {
+    "angular": "^1.5.8",
+    "angular-mocks": "^1.5.8"
+  }
+}
