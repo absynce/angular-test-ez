@@ -2,8 +2,10 @@ const argv = require('yargs').argv;
 const bump = require('gulp-bump');
 const concat = require('gulp-concat');
 const fs = require('fs');
+const git = require('gulp-git');
 const gulp = require('gulp');
 const gutil = require('gulp-util');
+const inquirer = require('inquirer');
 const karma = require('karma').Server;
 const prompt = require('gulp-prompt');
 const semver = require('semver');
@@ -50,6 +52,28 @@ gulp.task('bump', function bumpTask() {
     }))
     .pipe(bump({ version: bumpVersion }))
     .pipe(gulp.dest('./'));
+});
+
+gulp.task('tag', function tagTask(done) {
+  var version = getPackageJson().version;
+  var tagMessage = argv.m || "Release " + version;
+
+  inquirer.prompt({
+    type: 'confirm',
+    name: 'shouldTagVersion',
+    message: 'Tag version ' + version + ' with message "' + tagMessage + '"?',
+    when: !argv.f
+  }).then(function confirmTag(res) {
+    if(res.shouldTagVersion === false) return done();
+
+    git.tag(version, tagMessage, function tagCallback(tagError) {
+      if (tagError) return done(tagError);
+
+      git.push('origin', version, function pushTagCallback(pushTagError) {
+        return done(pushTagError);
+      });
+    });
+  });
 });
 
 gulp.task('test', [], function testTask(done) {
