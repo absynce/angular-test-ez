@@ -51,3 +51,23 @@ If the passed parameter has a `.then` function, return true. Otherwise, return f
 
     testEzService.isPromiseLike($q.defer().promise); // returns true
     testEzService.isPromiseLike(3); // returns false
+
+## Development
+
+### Run tests
+
+    gulp test
+
+### Create release distribution
+
+    gulp build # creates dist/angular-test-ez.js
+
+### Bump version
+
+    gulp bump # prompts for release type/version
+
+### Tag
+
+    gulp tag # prompts to confirm tag
+    gulp tag -f # forces tag, i.e. no prompt
+    gulp tag -m "Tag message here" # Specify tag annotation message
